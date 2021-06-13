@@ -2462,6 +2462,8 @@ function savedTheme() {
     }
 
     ;
+  } else {
+    refs.body.classList.add(Theme.LIGHT);
   }
 
   ;
@@ -2512,7 +2514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64427" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55534" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

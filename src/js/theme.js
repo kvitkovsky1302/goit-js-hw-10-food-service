@@ -29,6 +29,8 @@ function savedTheme () {
         if (savedTheme === 'dark-theme') {
             refs.themeSwitcher.checked = true;
         };
+    } else {
+        refs.body.classList.add(Theme.LIGHT);
     };
 }
 
