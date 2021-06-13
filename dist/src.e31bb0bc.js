@@ -2417,7 +2417,56 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"index.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"js/theme.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onChangeTheme = onChangeTheme;
+exports.savedTheme = savedTheme;
+exports.refs = void 0;
+var Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme'
+};
+var refs = {
+  menuList: document.querySelector('.js-menu'),
+  themeSwitcher: document.querySelector('#theme-switch-toggle'),
+  body: document.querySelector('body')
+};
+exports.refs = refs;
+
+function onChangeTheme(evt) {
+  if (evt.target.checked) {
+    refs.body.classList.remove(Theme.LIGHT);
+    refs.body.classList.add(Theme.DARK);
+    localStorage.setItem('Theme', Theme.DARK);
+  } else {
+    refs.body.classList.remove(Theme.DARK);
+    refs.body.classList.add(Theme.LIGHT);
+    localStorage.setItem('Theme', Theme.LIGHT);
+  }
+}
+
+;
+
+function savedTheme() {
+  var savedTheme = localStorage.getItem('Theme');
+
+  if (savedTheme) {
+    refs.body.classList.add(savedTheme);
+
+    if (savedTheme === 'dark-theme') {
+      refs.themeSwitcher.checked = true;
+    }
+
+    ;
+  }
+
+  ;
+}
+},{}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _menuItems = _interopRequireDefault(require("./templates/menu-items.hbs"));
@@ -2426,11 +2475,16 @@ var _menu = _interopRequireDefault(require("./js/menu.json"));
 
 require("./sass/main.scss");
 
+var _theme = require("./js/theme");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var menuList = document.querySelector('.js-menu');
-menuList.insertAdjacentHTML('afterbegin', (0, _menuItems.default)(_menu.default));
-},{"./templates/menu-items.hbs":"templates/menu-items.hbs","./js/menu.json":"js/menu.json","./sass/main.scss":"sass/main.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+_theme.refs.menuList.insertAdjacentHTML('afterbegin', (0, _menuItems.default)(_menu.default));
+
+_theme.refs.themeSwitcher.addEventListener('change', _theme.onChangeTheme);
+
+(0, _theme.savedTheme)();
+},{"./templates/menu-items.hbs":"templates/menu-items.hbs","./js/menu.json":"js/menu.json","./sass/main.scss":"sass/main.scss","./js/theme":"js/theme.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2458,7 +2512,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53021" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50413" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
